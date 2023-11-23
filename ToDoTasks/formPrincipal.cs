@@ -196,9 +196,7 @@ namespace ToDoTasks
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+
         private void ActualizarListViewTareas()
         {
             // Limpia y vuelve a llenar el ListBox de tareas.
@@ -322,6 +320,10 @@ namespace ToDoTasks
 
             MostrarDescripcionTareaSeleccionada();
         }
+        /// <summary>
+        /// Actualiza el ListView de la lista seleccionada con las tareas asociadas.
+        /// </summary>
+        /// <param name="listaSeleccionada">La lista de tareas seleccionada.</param>
         private void ActualizarListViewListaSeleccionada(ListaDeTareas listaSeleccionada)
 
         {
@@ -338,7 +340,9 @@ namespace ToDoTasks
                 item.Tag = tarea;
             }
         }
-
+        /// <summary>
+        /// Maneja el evento de cambio en la selección del ListView de tareas, mostrando la lista de tareas asociada.
+        /// </summary>
         private void ListViewTareas_SelectedIndexChanged(object sender, EventArgs e)
         {
             textBoxDescripcion.Clear();
@@ -362,28 +366,9 @@ namespace ToDoTasks
             }
         }
 
-
-        private void btnEstadoIncompleto_Click(object sender, EventArgs e)
-        {
-            if (listViewTareasHoy.SelectedItems.Count > 0)
-            {
-                // Obtiene el elemento seleccionado en el ListView.
-
-                ListViewItem selectedTask = listViewTareasHoy.SelectedItems[0];
-
-                // Verifica si el Tag del elemento seleccionado no es null y es una instancia de Tarea.
-                if (selectedTask.Tag is not null && selectedTask.Tag is Tareas)
-                {
-                    // Obtén la tarea almacenada en el Tag del elemento ListView.
-                    Tareas tareaSeleccionada = (Tareas)selectedTask.Tag;
-
-                    tareaSeleccionada.Estado = EstadoTarea.Incompleto;
-
-                    ActualizarlistViewTareasHoy();
-                }
-            }
-        }
-
+        /// <summary>
+        /// Marca la tarea seleccionada en el ListView de tareas de hoy como completa.
+        /// </summary>
         private void btnEstadoCompleto_Click(object sender, EventArgs e)
         {
             if (listViewTareasHoy.SelectedItems.Count > 0)
@@ -405,6 +390,9 @@ namespace ToDoTasks
             }
         }
 
+        /// <summary>
+        /// Abre el formulario para agregar una nueva tarea a la lista de tareas.
+        /// </summary>
         private void btnAgregarTareaLista_Click(object sender, EventArgs e)
         {
 
@@ -418,6 +406,9 @@ namespace ToDoTasks
             }
 
         }
+        /// <summary>
+        /// Abre el formulario para modificar la tarea o lista seleccionada.
+        /// </summary>
         private void btnModificarTareaLista_Click(object sender, EventArgs e)
         {
             if (listViewTareas.SelectedItems.Count > 0)
@@ -447,7 +438,10 @@ namespace ToDoTasks
                 }
             }
         }
-
+        /// <summary>
+        /// Abre el formulario para modificar la lista seleccionada.
+        /// </summary>
+        /// <param name="listaSeleccionada">La lista de tareas seleccionada.</param>
         private void ModificarLista(ListaDeTareas listaSeleccionada)
         {
             // Crear el formulario para modificar tarea y pasar la tarea seleccionada
@@ -461,7 +455,10 @@ namespace ToDoTasks
                 ActualizarlistViewTareasHoy();
             }
         }
-
+        /// <summary>
+        /// Abre el formulario para modificar la tarea seleccionada.
+        /// </summary>
+        /// <param name="tarea">La tarea seleccionada.</param>
         private void ModificarTarea(Tareas tarea)
         {
             // Crear el formulario para modificar tarea y pasar la tarea seleccionada
@@ -475,6 +472,11 @@ namespace ToDoTasks
                 ActualizarlistViewTareasHoy();
             }
         }
+        /// <summary>
+        /// Abre el formulario para modificar la tarea de la lista seleccionada.
+        /// </summary>
+        /// <param name="tarea">La tarea seleccionada.</param>
+        /// <param name="listaDeTareas">La lista de tareas a la que pertenece la tarea.</param>
 
         private void ModificarTareaDeListaSeleccionada(Tareas tarea, ListaDeTareas listaDeTareas)
         {
@@ -489,7 +491,9 @@ namespace ToDoTasks
                 ActualizarlistViewTareasHoy();
             }
         }
-
+        /// <summary>
+        /// Elimina la tarea o lista seleccionada en el ListView de tareas.
+        /// </summary>
         private void btnEliminarTareaLista_Click(object sender, EventArgs e)
         {
             if (listViewTareas.SelectedItems.Count > 0)
@@ -529,7 +533,9 @@ namespace ToDoTasks
                 }
             }
         }
-
+        /// <summary>
+        /// Abre el formulario para agregar o modificar una tarea a la lista seleccionada.
+        /// </summary>
         private void btnAgregarTareaListaSelect_Click(object sender, EventArgs e)
         {
             // Verifica si hay una lista seleccionada en el ListView
@@ -553,7 +559,9 @@ namespace ToDoTasks
                 MessageBox.Show("Seleccione una lista antes de agregar una tarea.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        /// <summary>
+        /// Abre el formulario para modificar la tarea de la lista seleccionada.
+        /// </summary>
         private void btnModificarTareaListaSelect_Click(object sender, EventArgs e)
         {
             if (listViewTareas.SelectedItems.Count > 0)
@@ -590,7 +598,9 @@ namespace ToDoTasks
                 }
             }
         }
-
+        /// <summary>
+        /// Elimina la tarea de la lista seleccionada en el ListView de tareas.
+        /// </summary>
         private void btnEliminarTareaListaSelect_Click(object sender, EventArgs e)
         {
 
@@ -629,6 +639,9 @@ namespace ToDoTasks
                 }
             }
         }
+        /// <summary>
+        /// Exporta las tareas y listas de tareas a un archivo JSON.
+        /// </summary>
         private void btnExportar_Click(object sender, EventArgs e)
         {
             try
@@ -644,6 +657,9 @@ namespace ToDoTasks
                 MessageBox.Show($"Error al exportar datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        /// <summary>
+        /// Importa las tareas y listas de tareas desde un archivo JSON.
+        /// </summary>
         private void btnImportar_Click(object sender, EventArgs e)
         {
             try
@@ -679,13 +695,17 @@ namespace ToDoTasks
             }
         }
 
-
+        /// <summary>
+        /// Muestra un mensaje cuando se elimina una lista.
+        /// </summary>
         private void MostrarMensajeEliminacionLista(object sender, ListaAltaEventArgs lista)
         {
 
             MessageBox.Show($"La LISTA | '{lista.Lista.Nombre}' fue eliminada.", "Éxito!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
+        /// <summary>
+        /// Muestra un mensaje cuando se elimina una tarea.
+        /// </summary>
         private void MostrarMensajeEliminacionTarea(object sender, TareaAltaEventArgs tarea)
         {
 
@@ -696,23 +716,32 @@ namespace ToDoTasks
     }
 
 
-    //Metodo de EXTENSION
+    /// <summary>
+    /// Clase de extensión para operaciones específicas con listas de tareas.
+    /// </summary>
     public static class TareasExtensions
     {
+        /// <summary>
+        /// Ordena una lista de elementos según la hora obtenida de una función específica.
+        /// </summary>
+        /// <typeparam name="T">Tipo de elementos en la lista.</typeparam>
+        /// <param name="listaOriginal">Lista original a ordenar.</param>
+        /// <param name="obtenerHora">Función que obtiene la hora de un elemento.</param>
+        /// <returns>Lista ordenada según la hora.</returns>
         public static List<T> OrdenarPor<T>(this List<T> listaOriginal, Func<T, TimeSpan> obtenerHora)
         {
-
+            // Utiliza el algoritmo de ordenación de burbuja para ordenar la lista según la hora.
             for (int i = 0; i < listaOriginal.Count - 1; i++)
             {
                 for (int j = 0; j < listaOriginal.Count - 1 - i; j++)
                 {
-                    //DELEGADOS
+                    // Utiliza delegados para obtener las horas de los elementos.
                     TimeSpan horaX = obtenerHora(listaOriginal[j]);
                     TimeSpan horaY = obtenerHora(listaOriginal[j + 1]);
 
+                    // Compara las horas y realiza el intercambio si están en el orden incorrecto.
                     if (TimeSpan.Compare(horaX, horaY) > 0)
                     {
-                        // Intercambiar elementos si están en el orden incorrecto
                         var temp = listaOriginal[j];
                         listaOriginal[j] = listaOriginal[j + 1];
                         listaOriginal[j + 1] = temp;
@@ -720,9 +749,9 @@ namespace ToDoTasks
                 }
             }
 
+            // Devuelve la lista original ordenada.
             return listaOriginal;
         }
     }
-
 
 }

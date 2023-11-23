@@ -16,13 +16,6 @@ namespace Entidades
         void AgregarTarea(Tareas tarea);
 
         /// <summary>
-        /// Modifica una tarea existente.
-        /// </summary>
-        /// <param name="tarea">La tarea con las modificaciones.</param>
-        /// <exception cref="Exception">Puede lanzar una excepción genérica si ocurre un error.</exception>
-        void ModificarTarea(Tareas tarea);
-
-        /// <summary>
         /// Elimina una tarea.
         /// </summary>
         /// <param name="tarea">La tarea a eliminar.</param>

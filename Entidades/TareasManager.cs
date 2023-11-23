@@ -14,6 +14,8 @@ namespace Entidades
 {
     public class TareasManager : ITareaManager
     {
+
+
         public List<Tareas> Tareas { get; }
 
         public TareasManager()
@@ -21,47 +23,29 @@ namespace Entidades
             this.Tareas = new List<Tareas>();
         }
 
-
-        // Método para serializar la lista de tareas a JSON
-        public void SerializarTareas(string filePath)
-        {
-            string jsonString = JsonSerializer.Serialize(Tareas);
-            File.WriteAllText(filePath, jsonString);
-        }
-
-        // Método para deserializar la lista de tareas desde JSON
-        public void DeserializarTareas(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                string jsonString = File.ReadAllText(filePath);
-                List<Tareas> tareasDeserializadas = JsonSerializer.Deserialize<List<Tareas>>(jsonString);
-
-                // Reemplazar la lista existente con la lista deserializada
-                Tareas.Clear();
-                Tareas.AddRange(tareasDeserializadas);
-            }
-        }
+        /// <summary>
+        /// Agrega una nueva tarea a la lista de tareas gestionadas.
+        /// </summary>
+        /// <param name="tarea">Tarea que se agregará a la lista.</param>
 
         public void AgregarTarea(Tareas tarea)
         {
             this.Tareas.Add(tarea);
         }
-
-        public void ModificarTarea(Tareas tarea)
-        {
-            var tareaExistente = BuscarTareaPorNombre(tarea.Nombre);
-
-            if (tareaExistente != null)
-            {
-                tareaExistente.ModificarTarea(tarea);
-            }
-        }
+        /// <summary>
+        /// Busca una tarea por su nombre en la lista de tareas gestionadas.
+        /// </summary>
+        /// <param name="nombre">Nombre de la tarea a buscar.</param>
+        /// <returns>La tarea encontrada o null si no se encuentra.</returns>
 
         private Tareas BuscarTareaPorNombre(string nombre)
         {
             return this.Tareas.FirstOrDefault(t => t.Nombre == nombre);
         }
+        /// <summary>
+        /// Elimina una tarea de la lista de tareas gestionadas.
+        /// </summary>
+        /// <param name="tarea">Tarea que se eliminará de la lista.</param>
 
         public void EliminarTarea(Tareas tarea)
         {
@@ -73,6 +57,10 @@ namespace Entidades
                 Tareas.Remove(tareaExistente);
             }
         }
+        /// <summary>
+        /// Marca una tarea como completa.
+        /// </summary>
+        /// <param name="tarea">Tarea que se marcará como completa.</param>
 
         public void MarcarCompleto(Tareas tarea)
         {
@@ -88,11 +76,19 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Marca una tarea como pendiente.
+        /// </summary>
+        /// <param name="tarea">Tarea que se marcará como pendiente.</param>
 
         public void MarcarPendiente(Tareas tarea)
         {
             tarea.Estado = EstadoTarea.Pendiente;
         }
+        /// <summary>
+        /// Marca una tarea como incompleta basándose en su estado y fecha.
+        /// </summary>
+        /// <param name="tarea">Tarea que se marcará como incompleta.</param>
 
         public void MarcarIncompleto(Tareas tarea)
         {
@@ -101,6 +97,11 @@ namespace Entidades
                 tarea.Estado = (EsHoy(tarea) && tarea.Hora <= DateTime.Now.TimeOfDay) ? EstadoTarea.Incompleto : EstadoTarea.Pendiente;
             }
         }
+        /// <summary>
+        /// Verifica si una tarea debe realizarse hoy.
+        /// </summary>
+        /// <param name="tarea">Tarea que se verificará.</param>
+        /// <returns>True si la tarea debe realizarse hoy, False en caso contrario.</returns>
 
         public bool EsHoy(Tareas tarea)
         {
@@ -111,12 +112,20 @@ namespace Entidades
             var fechaActual = DateTime.Today;
             return tarea.Fecha.Date == fechaActual.Date;
         }
-
+        /// <summary>
+        /// Verifica si una tarea es recurrente.
+        /// </summary>
+        /// <param name="tarea">Tarea que se verificará.</param>
+        /// <returns>True si la tarea es recurrente, False en caso contrario.</returns>
         public bool EsRecurrente(Tareas tarea)
         {
             return tarea.Repetir != Repeticion.Ninguna;
         }
-
+        /// <summary>
+        /// Verifica si una tarea es recurrente y debe realizarse hoy.
+        /// </summary>
+        /// <param name="tarea">Tarea que se verificará.</param>
+        /// <returns>True si la tarea es recurrente y debe realizarse hoy, False en caso contrario.</returns>
         public bool EsRecurrenteEnDia(Tareas tarea)
         {
             if (!EsRecurrente(tarea))
@@ -142,6 +151,11 @@ namespace Entidades
                     return false;
             }
         }
+        /// <summary>
+        /// Obtiene la fecha formateada de una tarea según su repetición.
+        /// </summary>
+        /// <param name="tarea">Tarea de la cual se obtendrá la fecha formateada.</param>
+        /// <returns>Fecha formateada de la tarea.</returns>
 
         public string ObtenerFechaFormateada(Tareas tarea)
         {

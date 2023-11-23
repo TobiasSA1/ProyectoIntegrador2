@@ -9,18 +9,21 @@ namespace Entidades
 {
     public class TareaRutinaria : Tareas
     {
+        /// <summary>
+        /// Días de la semana en los que se repite la tarea.
+        /// </summary>
         public HashSet<DayOfWeek> diasSemanales { get; set; }
 
-        public string ToJson()
-        {
-            return JsonSerializer.Serialize(this, this.GetType(), new JsonSerializerOptions { WriteIndented = true });
-        }
-
-        public static TareaRutinaria FromJson(string json)
-        {
-            return JsonSerializer.Deserialize<TareaRutinaria>(json);
-        }
-
+        /// <summary>
+        /// Constructor de la clase TareaRutinaria.
+        /// </summary>
+        /// <param name="nombre">Nombre de la tarea rutinaria.</param>
+        /// <param name="hora">Hora de la tarea rutinaria.</param>
+        /// <param name="repetir">Frecuencia de repetición de la tarea rutinaria.</param>
+        /// <param name="descripcion">Descripción de la tarea rutinaria.</param>
+        /// <param name="estado">Estado inicial de la tarea rutinaria.</param>
+        /// <param name="dias">Días de la semana en los que se repite la tarea rutinaria.</param>
+        /// <param name="fecha">Fecha específica para tareas rutinarias con repetición en fecha específica.</param>
         public TareaRutinaria(string nombre, TimeSpan hora, Repeticion repetir, string descripcion, EstadoTarea estado, HashSet<DayOfWeek> dias, DateTime fecha)
             : base(nombre, TipoTarea.Rutinaria, hora, repetir, descripcion, estado)
         {
@@ -51,6 +54,10 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Establece la fecha específica para tareas rutinarias con repetición en fecha específica.
+        /// </summary>
+        /// <param name="fecha">Nueva fecha para la tarea rutinaria.</param>
         public void SetFecha(DateTime fecha)
         {
             try
@@ -68,23 +75,10 @@ namespace Entidades
             }
         }
 
-        public void AgregarDiasSemana(HashSet<DayOfWeek> dias)
-        {
-            try
-            {
-                // Validar que la repetición sea correcta para agregar días
-                if (base.Repetir != Repeticion.Dias)
-                {
-                    throw new InvalidOperationException("Solo se pueden agregar días para tareas con repetición semanal.");
-                }
-
-                this.diasSemanales.UnionWith(dias);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new InvalidOperationException("Error al agregar días a la tarea rutinaria.", ex);
-            }
-        }
+        /// <summary>
+        /// Devuelve una cadena que representa los días de la semana en los que se repite la tarea rutinaria.
+        /// </summary>
+        /// <returns>Cadena con los días de la semana de la tarea rutinaria.</returns>
 
         public string MostrarDiasSemana()
         {
@@ -116,10 +110,16 @@ namespace Entidades
             }
             catch (Exception ex)
             {
-                // Puedes agregar un manejador de excepciones específico o simplemente lanzar la excepción nuevamente
                 throw new Exception("Error al mostrar los días de la semana de la tarea rutinaria.", ex);
             }
         }
+        /// <summary>
+        /// Traduce un día de la semana de inglés a español.
+        /// </summary>
+        /// <param name="dia">Día de la semana en inglés.</param>
+        /// <param name="diasEnIngles">Array de días de la semana en inglés.</param>
+        /// <param name="diasEnEspanol">Array de días de la semana en español.</param>
+        /// <returns>Día de la semana traducido a español.</returns>
 
         private static string TraducirDia(DayOfWeek dia, DayOfWeek[] diasEnIngles, string[] diasEnEspanol)
         {

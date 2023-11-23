@@ -9,18 +9,19 @@ namespace Entidades
 {
     public class TareaIrregular : Tareas
     {
+        /// <summary>
+        /// Obtiene o establece la fecha específica de la tarea irregular.
+        /// </summary>
         public override DateTime Fecha { get; set; }
 
-        public string ToJson()
-        {
-            return JsonSerializer.Serialize(this, this.GetType(), new JsonSerializerOptions { WriteIndented = true });
-        }
-
-        public static TareaIrregular FromJson(string json)
-        {
-            return JsonSerializer.Deserialize<TareaIrregular>(json);
-        }
-
+        /// <summary>
+        /// Constructor de la clase TareaIrregular.
+        /// </summary>
+        /// <param name="nombre">Nombre de la tarea irregular.</param>
+        /// <param name="hora">Hora de la tarea irregular.</param>
+        /// <param name="descripcion">Descripción de la tarea irregular.</param>
+        /// <param name="estado">Estado inicial de la tarea irregular.</param>
+        /// <param name="fecha">Fecha específica de la tarea irregular.</param>
         public TareaIrregular(string nombre, TimeSpan hora, string descripcion, EstadoTarea estado, DateTime fecha)
             : base(nombre, TipoTarea.Irregular, hora, Repeticion.Ninguna, descripcion, estado)
         {
@@ -34,6 +35,10 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Establece la fecha específica para tareas irregulares.
+        /// </summary>
+        /// <param name="fecha">Nueva fecha para la tarea irregular.</param>
         private void SetFecha(DateTime fecha)
         {
             try

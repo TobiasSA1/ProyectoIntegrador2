@@ -16,6 +16,12 @@ namespace ToDoTasks
         private ListaDeTareasManager listaDeTareasManager;
 
         private ListaDeTareas listaSeleccionada;
+        /// <summary>
+        /// Constructor del formulario <see cref="formAgregarLista"/>.
+        /// Inicializa una nueva instancia del formulario para agregar listas.
+        /// </summary>
+        /// <param name="listaDeTareasManager">Instancia del manager de listas de tareas.</param>
+
         public formAgregarLista(ListaDeTareasManager listaDeTareasManager)
         {
             InitializeComponent();
@@ -23,6 +29,12 @@ namespace ToDoTasks
             this.listaDeTareasManager = listaDeTareasManager;
 
         }
+        /// <summary>
+        /// Constructor del formulario <see cref="formAgregarLista"/> utilizado para modificar una lista existente.
+        /// Inicializa una nueva instancia del formulario con la lista seleccionada.
+        /// </summary>
+        /// <param name="listaSeleccionada">Lista de tareas seleccionada para modificación.</param>
+        /// <param name="listaDeTareasManager">Instancia del manager de listas de tareas.</param>
 
         public formAgregarLista(ListaDeTareas listaSeleccionada, ListaDeTareasManager listaDeTareasManager) : this(listaDeTareasManager)
         {
@@ -37,6 +49,9 @@ namespace ToDoTasks
                 BloquearControlesParaModificacion();
             }
         }
+        /// <summary>
+        /// Configura los campos del formulario según la lista seleccionada para modificación.
+        /// </summary>
 
         private void ConfigurarCamposListaSeleccionada()
         {
@@ -44,6 +59,9 @@ namespace ToDoTasks
 
             ActualizarInterfazSegunLista();
         }
+        /// <summary>
+        /// Bloquea los controles del formulario para la modificación de listas.
+        /// </summary>
 
         private void BloquearControlesParaModificacion()
         {
@@ -54,6 +72,9 @@ namespace ToDoTasks
             checkDiaria.Enabled = false;
             checkDias.Enabled = false;
         }
+        /// <summary>
+        /// Actualiza la interfaz del formulario según la lista seleccionada.
+        /// </summary>
 
         private void ActualizarInterfazSegunLista()
         {
@@ -88,36 +109,44 @@ namespace ToDoTasks
 
         private void formAgregarLista_Load(object sender, EventArgs e)
         {
-            // Inicializar los controles
-            //BloquearControlesIrregular();
-        }
 
+        }
+        /// <summary>
+        /// Bloquea los controles para el tipo de tarea "Irregular".
+        /// </summary>
         private void BloquearControlesIrregular()
         {
-            // Bloquear controles para tipo irregular
+
             checkFechaEspecifica.Enabled = false;
             checkDiaria.Enabled = false;
             checkDias.Enabled = false;
         }
-
+        /// <summary>
+        /// Desbloquea los controles para el tipo de tarea "Rutinaria".
+        /// </summary>
         private void DesbloquearControlesRutinaria()
         {
-            // Desbloquear controles para tipo rutinario
             checkFechaEspecifica.Enabled = true;
             checkDiaria.Enabled = true;
             checkDias.Enabled = true;
         }
-
+        /// <summary>
+        /// Maneja el evento de cambio de selección del radio de tipo "Irregular".
+        /// </summary>
         private void RadioIrregular_CheckedChanged(object sender, EventArgs e)
         {
             BloquearControlesIrregular();
         }
-
+        /// <summary>
+        /// Maneja el evento de cambio de selección del radio de tipo "Rutinaria".
+        /// </summary>
         private void RadioRutinaria_CheckedChanged(object sender, EventArgs e)
         {
             DesbloquearControlesRutinaria();
         }
-
+        /// <summary>
+        /// Maneja el evento de cambio de estado del checkbox de tarea diaria.
+        /// </summary>
         private void CheckDiaria_CheckedChanged(object sender, EventArgs e)
         {
             if (checkDiaria.Checked)
@@ -129,7 +158,9 @@ namespace ToDoTasks
                 DesbloquearControlesRutinaria();
             }
         }
-
+        /// <summary>
+        /// Maneja el evento de cambio de estado del checkbox de fecha específica.
+        /// </summary>
         private void CheckFechaEspecifica_CheckedChanged(object sender, EventArgs e)
         {
             if (checkFechaEspecifica.Checked)
@@ -141,7 +172,9 @@ namespace ToDoTasks
                 DesbloquearControlesRutinaria();
             }
         }
-
+        /// <summary>
+        /// Maneja el evento de cambio de estado del checkbox de días de la semana.
+        /// </summary>
         private void CheckDias_CheckedChanged(object sender, EventArgs e)
         {
             if (checkDias.Checked)
@@ -153,21 +186,26 @@ namespace ToDoTasks
                 DesbloquearControlesRutinaria();
             }
         }
-
+        /// <summary>
+        /// Bloquea los controles para una tarea diaria.
+        /// </summary>
         private void BloquearControlesDiaria()
         {
-            // Bloquear controles para tarea diaria
             checkFechaEspecifica.Enabled = false;
             checkDias.Enabled = false;
         }
-
+        /// <summary>
+        /// Bloquea los controles para una tarea en fecha específica.
+        /// </summary>
         private void BloquearControlesFechaEspecifica()
         {
             // Bloquear controles para tarea en fecha específica
             checkDiaria.Enabled = false;
             checkDias.Enabled = false;
         }
-
+        /// <summary>
+        /// Bloquea los controles para una tarea por días de la semana.
+        /// </summary>
         private void BloquearControlesDias()
         {
             // Bloquear controles para tarea por días de la semana
@@ -176,7 +214,9 @@ namespace ToDoTasks
         }
 
 
-
+        /// <summary>
+        /// Maneja el evento de clic en el botón para agregar o modificar la lista de tareas.
+        /// </summary>
         private void btnAgregarLista_Click(object sender, EventArgs e)
         {
             try
@@ -194,19 +234,27 @@ namespace ToDoTasks
             }
         }
 
-
+        /// <summary>
+        /// Maneja el evento de clic en el botón para cancelar la operación y cerrar el formulario.
+        /// </summary>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
+        /// <summary>
+        /// Obtiene el nombre ingresado para la lista desde el campo de texto.
+        /// </summary>
+        /// <returns>Nombre de la lista.</returns>
         private string ObtenerNombreLista()
         {
             string nombre = richTextBoxNombreLista.Text;
             ValidarNombreLista(nombre);
             return nombre;
         }
-
+        /// <summary>
+        /// Valida que el nombre de la lista no esté vacío o nulo.
+        /// </summary>
+        /// <param name="nombre">Nombre de la lista.</param>
         private static void ValidarNombreLista(string nombre)
         {
             if (string.IsNullOrEmpty(nombre))
@@ -214,11 +262,18 @@ namespace ToDoTasks
                 throw new ArgumentException("El nombre de la lista no puede estar vacío.", nameof(nombre));
             }
         }
-
+        /// <summary>
+        /// Obtiene el tipo de tarea seleccionado en el formulario.
+        /// </summary>
+        /// <returns>Tipo de tarea (Rutinaria o Irregular).</returns>
         private TipoTarea ObtenerTipoTarea()
         {
             return radioRutinaria.Checked ? TipoTarea.Rutinaria : TipoTarea.Irregular;
         }
+        /// <summary>
+        /// Obtiene el tipo de repetición seleccionado en el formulario.
+        /// </summary>
+        /// <returns>Tipo de repetición (EnFechaEspecifica, Diaria, Dias o Ninguna).</returns>
 
         private Repeticion ObtenerRepeticion()
         {
@@ -240,6 +295,9 @@ namespace ToDoTasks
                 return Repeticion.Ninguna;
             }
         }
+        /// <summary>
+        /// Agrega o modifica una lista de tareas según la información ingresada en el formulario.
+        /// </summary>
 
         private void AgregarLista()
         {

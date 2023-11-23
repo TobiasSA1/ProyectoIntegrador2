@@ -87,7 +87,9 @@ namespace ToDoTasks
                 ConfigurarCamposTareaSeleccionada();
             }
         }
-
+        /// <summary>
+        /// Configura los controles según la lista de tareas seleccionada, marcando y bloqueando los controles según el tipo de repetición.
+        /// </summary>
         private void ConfigurarControlesDesdeListaSeleccionada()
         {
             if (listaSeleccionada is not null)
@@ -129,7 +131,9 @@ namespace ToDoTasks
         }
 
 
-        // Método para configurar los campos con los datos de la tarea seleccionada
+        /// <summary>
+        /// Configura los campos del formulario con los datos de la tarea actualmente seleccionada.
+        /// </summary>
         private void ConfigurarCamposTareaSeleccionada()
         {
             richTextBoxNombreTareas.Text = tareaSeleccionada.Nombre;
@@ -141,7 +145,9 @@ namespace ToDoTasks
             ActualizarInterfazSegunTarea();
         }
 
-        // Método para actualizar la interfaz gráfica según la tarea seleccionada
+        /// <summary>
+        /// Actualiza la interfaz gráfica según el tipo de tarea seleccionada.
+        /// </summary>
         private void ActualizarInterfazSegunTarea()
         {
 
@@ -172,6 +178,9 @@ namespace ToDoTasks
             }
         }
 
+        /// <summary>
+        /// Inicializa los elementos del formulario, como la lista de días, el rango mínimo de la fecha y la máscara del cuadro de texto de la hora.
+        /// </summary>
         private void Inicializar()
         {
             checkedListBoxDias.Items.Add("Lunes");
@@ -188,11 +197,16 @@ namespace ToDoTasks
             //RadioIrregular.Checked = true;
         }
 
-
+        /// <summary>
+        /// Maneja el evento de foco en el cuadro de texto de la hora para seleccionar todo el contenido.
+        /// </summary>
         private void maskedTextBoxHora_GotFocus(object sender, EventArgs e)
         {
             maskedTextBoxHora.Select(0, 0);
         }
+        /// <summary>
+        /// Maneja el evento de carga del formulario, llamando al método Inicializar y configurando el evento GotFocus para el cuadro de texto de la hora.
+        /// </summary>
         private void frmListaDeTareasAgregarModificar_Load(object sender, EventArgs e)
         {
             Inicializar();
@@ -200,18 +214,26 @@ namespace ToDoTasks
             maskedTextBoxHora.GotFocus += maskedTextBoxHora_GotFocus;
 
         }
+        /// <summary>
+        /// Maneja el evento de cambio en la selección del RadioButton Irregular, bloqueando los controles correspondientes.
+        /// </summary>
         private void RadioIrregular_CheckedChanged_1(object sender, EventArgs e)
         {
             BloquearControlesIrregular();
 
         }
+        /// <summary>
+        /// Maneja el evento de cambio en la selección del RadioButton Rutinaria, desbloqueando todos los controles.
+        /// </summary>
         private void RadioRutinaria_CheckedChanged(object sender, EventArgs e)
         {
 
             DesbloquearControles();
 
         }
-
+        /// <summary>
+        /// Maneja el evento de cambio en la selección del CheckBox Diaria, bloqueando o desbloqueando los controles correspondientes.
+        /// </summary>
         private void CheckDiaria_CheckedChanged(object sender, EventArgs e)
         {
             if (checkDiaria.Checked)
@@ -223,7 +245,9 @@ namespace ToDoTasks
                 DesbloquearControles();
             }
         }
-
+        /// <summary>
+        /// Maneja el evento de cambio en la selección del CheckBox FechaEspecifica, bloqueando o desbloqueando los controles correspondientes.
+        /// </summary>
         private void CheckFechaEspecifica_CheckedChanged(object sender, EventArgs e)
         {
             if (checkFechaEspecifica.Checked)
@@ -235,7 +259,9 @@ namespace ToDoTasks
                 DesbloquearControles();
             }
         }
-
+        /// <summary>
+        /// Maneja el evento de cambio en la selección del CheckBox Dias, bloqueando o desbloqueando los controles correspondientes y desmarcando los días seleccionados.
+        /// </summary>
         private void CheckDias_CheckedChanged(object sender, EventArgs e)
         {
             if (checkDias.Checked)
@@ -253,14 +279,18 @@ namespace ToDoTasks
             }
         }
 
-
+        /// <summary>
+        /// Maneja el evento de clic en el botón "Cancelar", cerrando el formulario.
+        /// </summary>
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        // Lógica de bloqueo/desbloqueo y agregar tarea
 
+        /// <summary>
+        /// Bloquea los controles para una tarea irregular, desmarcando los CheckBox correspondientes y deshabilitando los controles de selección.
+        /// </summary>
         private void BloquearControlesIrregular()
         {
             // Bloquear controles para tipo irregular
@@ -274,7 +304,9 @@ namespace ToDoTasks
             checkedListBoxDias.Enabled = false;
 
         }
-
+        /// <summary>
+        /// Desbloquea los controles para una tarea rutinaria, habilitando los controles de selección según el tipo de repetición.
+        /// </summary>
         private void DesbloquearControles()
         {
             // Desbloquear controles para tipo rutinario
@@ -284,7 +316,9 @@ namespace ToDoTasks
             checkDias.Enabled = true;
             checkedListBoxDias.Enabled = true;
         }
-
+        /// <summary>
+        /// Bloquea los controles para una tarea diaria, desmarcando el CheckBox de días y deshabilitando los controles de selección de días.
+        /// </summary>
         private void BloquearControlesDiaria()
         {
             // Bloquear controles para tarea diaria
@@ -298,7 +332,9 @@ namespace ToDoTasks
                 checkedListBoxDias.SetItemChecked(index, false);
             }
         }
-
+        /// <summary>
+        /// Bloquea los controles para una tarea en fecha específica, desmarcando el CheckBox de días y deshabilitando los controles de selección de días.
+        /// </summary>
         private void BloquearControlesFechaEspecifica()
         {
             // Bloquear controles para tarea en fecha específica
@@ -312,7 +348,9 @@ namespace ToDoTasks
                 checkedListBoxDias.SetItemChecked(index, false);
             }
         }
-
+        /// <summary>
+        /// Bloquea los controles para una tarea por días de la semana, desmarcando los CheckBox de fecha específica y diaria, y deshabilitando los controles de selección de días.
+        /// </summary>
         private void BloquearControlesDias()
         {
             // Bloquear controles para tarea por días de la semana
@@ -320,6 +358,10 @@ namespace ToDoTasks
             checkFechaEspecifica.Enabled = false;
             dateTimePicker.Enabled = false;
         }
+
+        /// <summary>
+        /// Agrega una nueva tarea al sistema según los datos ingresados por el usuario.
+        /// </summary>
         private void AgregarTarea()
         {
             try
@@ -428,13 +470,20 @@ namespace ToDoTasks
             }
         }
 
+        /// <summary>
+        /// Obtiene el nombre de la tarea desde el cuadro de texto y realiza validaciones.
+        /// </summary>
+        /// <returns>El nombre de la tarea.</returns>
         private string ObtenerNombre()
         {
             string nombre = richTextBoxNombreTareas.Text;
             ValidarNombre(nombre);
             return nombre;
         }
-
+        /// <summary>
+        /// Realiza la validación del nombre para asegurarse de que no exceda la longitud permitida.
+        /// </summary>
+        /// <param name="nombre">El nombre a validar.</param>
         private static void ValidarNombre(string nombre)
         {
             if (nombre.Length > 40)
@@ -442,12 +491,18 @@ namespace ToDoTasks
                 throw new ArgumentException("El nombre no puede tener más de 40 caracteres.", nameof(nombre));
             }
         }
-
+        /// <summary>
+        /// Obtiene la descripción de la tarea desde el cuadro de texto.
+        /// </summary>
+        /// <returns>La descripción de la tarea.</returns>
         private string ObtenerDescripcion()
         {
             return richTextBoxDescripcion.Text;
         }
-
+        /// <summary>
+        /// Obtiene la hora de la tarea desde el cuadro de texto y realiza validaciones.
+        /// </summary>
+        /// <returns>La hora de la tarea.</returns>
         private TimeSpan ObtenerHora()
         {
             string tiempo = maskedTextBoxHora.Text;
@@ -458,7 +513,10 @@ namespace ToDoTasks
             }
             return hora;
         }
-
+        /// <summary>
+        /// Obtiene los días de la semana seleccionados por el usuario para tareas rutinarias.
+        /// </summary>
+        /// <returns>Conjunto de días de la semana seleccionados.</returns>
         private HashSet<DayOfWeek> ObtenerDiasSeleccionados()
         {
             Dictionary<string, DayOfWeek> mapeoDias = new Dictionary<string, DayOfWeek>
@@ -492,12 +550,18 @@ namespace ToDoTasks
 
             return dias;
         }
-
+        /// <summary>
+        /// Obtiene la fecha específica ingresada por el usuario.
+        /// </summary>
+        /// <returns>La fecha específica para la tarea rutinaria.</returns>
         private DateTime ObtenerFechaEspecifica()
         {
             return dateTimePicker.Value;
         }
-
+        /// <summary>
+        /// Obtiene un conjunto de días que representa los días diarios para tareas rutinarias.
+        /// </summary>
+        /// <returns>Conjunto de días diarios.</returns>
         private static HashSet<DayOfWeek> ObtenerDiasDiarios()
         {
             HashSet<DayOfWeek> diario = new HashSet<DayOfWeek>
@@ -512,12 +576,17 @@ namespace ToDoTasks
             };
             return diario;
         }
-
+        /// <summary>
+        /// Obtiene la fecha ingresada por el usuario para tareas irregulares.
+        /// </summary>
+        /// <returns>La fecha específica para la tarea irregular.</returns>
         private DateTime ObtenerFechaIrregular()
         {
             return dateTimePicker.Value;
         }
-
+        /// <summary>
+        /// Maneja el evento de clic en el botón "Aceptar" para agregar o modificar una tarea.
+        /// </summary>
         private void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -542,6 +611,9 @@ namespace ToDoTasks
                 MessageBox.Show($"Error al {(tareaSeleccionada != null ? "modificar" : "agregar")} la tarea: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        /// <summary>
+        /// Configura los elementos de la lista de días seleccionados según la tarea actualmente seleccionada.
+        /// </summary>
         private void ConfigurarCheckedListBoxDias()
         {
             // Limpiar selecciones anteriores
@@ -564,7 +636,11 @@ namespace ToDoTasks
                 }
             }
         }
-
+        /// <summary>
+        /// Obtiene el índice del día de la semana para la configuración del CheckedListBox.
+        /// </summary>
+        /// <param name="dia">Día de la semana.</param>
+        /// <returns>Índice correspondiente en el CheckedListBox.</returns>
         private static int ObtenerIndiceDia(DayOfWeek dia)
         {
             switch (dia)
@@ -587,7 +663,9 @@ namespace ToDoTasks
                     return -1; // Día no válido
             }
         }
-
+        /// <summary>
+        /// Modifica una tarea existente según los datos ingresados por el usuario.
+        /// </summary>
         private void ModificarTarea()
         {
             try
@@ -696,24 +774,36 @@ namespace ToDoTasks
                 MessageBox.Show($"Error al modificar la tarea: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        /// <summary>
+        /// Muestra un mensaje de alta para la tarea.
+        /// </summary>
         private void MostrarMensajeAlta(object sender, TareaAltaEventArgs e)
         {
 
             MessageBox.Show($"La TAREA | '{e.Tarea.Nombre}' dada de alta.", "Éxito!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
+        /// <summary>
+        /// Muestra un mensaje de modificacion de la tarea
+        /// </summary>
         private void MostrarMensajeModificacion(object sender, TareaAltaEventArgs e)
         {
 
             MessageBox.Show($"La TAREA | '{e.Tarea.Nombre}' modificada.", "Éxito!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        /// <summary>
+        /// Muestra un mensaje de modificación para la tarea en la lista
+        /// </summary>
         private void MostrarMensajeModificacionLista(object sender,ListaAltaEventArgs lista)
         {
 
             MessageBox.Show($"fue modificada la tarea en la LISTA | '{lista.Lista.Nombre}'.", "Éxito!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
+
+    /// <summary>
+    /// Argumentos para el evento de alta de tarea.
+    /// </summary>
     public class TareaAltaEventArgs : EventArgs
     {
         public Tareas Tarea { get; }
@@ -724,6 +814,9 @@ namespace ToDoTasks
         }
     }
 
+    /// <summary>
+    /// Argumentos para el evento de modificación de lista.
+    /// </summary>
     public class ListaAltaEventArgs : EventArgs
     {
         public ListaDeTareas Lista { get; }

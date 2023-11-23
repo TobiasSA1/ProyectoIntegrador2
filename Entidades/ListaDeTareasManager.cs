@@ -19,27 +19,10 @@ namespace Entidades
             ListasDeTareas = new List<ListaDeTareas>();
         }
 
-
-        public void SerializarListas(string filePath)
-        {
-            string jsonString = JsonSerializer.Serialize(ListasDeTareas);
-            File.WriteAllText(filePath, jsonString);
-        }
-
-        // Método para deserializar la lista de listas de tareas desde JSON
-        public void DeserializarListas(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                string jsonString = File.ReadAllText(filePath);
-                List<ListaDeTareas> listasDeserializadas = JsonSerializer.Deserialize<List<ListaDeTareas>>(jsonString);
-
-                // Reemplazar la lista existente con la lista deserializada
-                ListasDeTareas.Clear();
-                ListasDeTareas.AddRange(listasDeserializadas);
-            }
-        }
-
+        /// <summary>
+        /// Agrega una nueva lista de tareas al gestor.
+        /// </summary>
+        /// <param name="lista">Lista de tareas a agregar.</param>
         public void AgregarListaDeTareas(ListaDeTareas lista)
         {
             try
@@ -52,6 +35,11 @@ namespace Entidades
                 throw new Exception("Error al agregar una lista de tareas.", ex);
             }
         }
+        /// <summary>
+        /// Modifica el nombre de una lista de tareas existente.
+        /// </summary>
+        /// <param name="listaExistente">Lista de tareas existente.</param>
+        /// <param name="nuevoNombre">Nuevo nombre para la lista de tareas.</param>
         public void ModificarListaDeTareas(ListaDeTareas listaExistente, string nuevoNombre)
         {
             try
@@ -72,6 +60,11 @@ namespace Entidades
                 throw new Exception("Error al modificar una lista de tareas.", ex);
             }
         }
+        /// <summary>
+        /// Elimina una tarea de una lista de tareas.
+        /// </summary>
+        /// <param name="lista">Lista de tareas de la cual eliminar la tarea.</param>
+        /// <param name="tarea">Tarea a eliminar de la lista.</param>
         public void EliminarTareaDeLista(ListaDeTareas lista, Tareas tarea)
         {
             try
@@ -93,6 +86,10 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Elimina una lista de tareas del gestor.
+        /// </summary>
+        /// <param name="lista">Lista de tareas a eliminar.</param>
         public void EliminarListaDeTareas(ListaDeTareas lista)
         {
             try
@@ -107,6 +104,11 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Verifica si el gestor contiene una lista de tareas específica.
+        /// </summary>
+        /// <param name="lista">Lista de tareas a verificar.</param>
+        /// <returns>True si la lista de tareas está contenida en el gestor; de lo contrario, false.</returns>
         public bool ContieneListaDeTareas(ListaDeTareas lista)
         {
             try
@@ -120,6 +122,11 @@ namespace Entidades
                 throw new Exception("Error al verificar si la lista de tareas contiene una lista específica.", ex);
             }
         }
+        /// <summary>
+        /// Obtiene los días únicos de la semana de un conjunto de tareas.
+        /// </summary>
+        /// <param name="tareas">Lista de tareas.</param>
+        /// <returns>Cadena que representa los días únicos de la semana.</returns>
         public string ObtenerDiasUnicos(List<Tareas> tareas)
         {
             HashSet<DayOfWeek> diasUnicos = new HashSet<DayOfWeek>();
@@ -143,6 +150,14 @@ namespace Entidades
             return diasFormateados;
         }
 
+        /// <summary>
+        /// Traduce el día de la semana de inglés a español.
+        /// </summary>
+        /// <param name="dia">Día de la semana en inglés.</param>
+        /// <param name="diasEnIngles">Array de días de la semana en inglés.</param>
+        /// <param name="diasEnEspanol">Array de días de la semana en español.</param>
+        /// <returns>Día de la semana traducido a español o el día original si no se encuentra en la lista de traducción.</returns>
+
         private static string TraducirDia(DayOfWeek dia, DayOfWeek[] diasEnIngles, string[] diasEnEspanol)
         {
             try
@@ -162,6 +177,12 @@ namespace Entidades
                 throw new Exception("Error al traducir el día de la tarea rutinaria.", ex);
             }
         }
+
+        /// <summary>
+        /// Obtiene la fecha formateada para una lista de tareas específica.
+        /// </summary>
+        /// <param name="listaDeTareas">Lista de tareas.</param>
+        /// <returns>Cadena que representa la fecha formateada.</returns>
         public string ObtenerFechaFormateada(ListaDeTareas listaDeTareas)
         {
             try
@@ -197,6 +218,13 @@ namespace Entidades
                 throw new Exception("Error al obtener la fecha formateada de la lista de tareas.", ex);
             }
         }
+
+        /// <summary>
+        /// Obtiene la fecha formateada para una lista de tareas específica.
+        /// </summary>
+        /// <param name="listaDeTareas">Lista de tareas.</param>
+        /// <returns>Cadena que representa la fecha formateada.</returns>
+
         private static string ObtenerFechaFormateadaTarea(Tareas tarea)
         {
             try
